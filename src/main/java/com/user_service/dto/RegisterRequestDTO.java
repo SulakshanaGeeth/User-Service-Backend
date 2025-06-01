@@ -1,6 +1,6 @@
 package com.user_service.dto;
 
-public class RegisterRequest {
+public class RegisterRequestDTO {
     private String username;
     private String password;
 

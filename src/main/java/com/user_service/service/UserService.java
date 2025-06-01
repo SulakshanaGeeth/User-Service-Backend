@@ -1,6 +1,6 @@
 package com.user_service.service;
 
-import com.user_service.dto.RegisterRequest;
+import com.user_service.dto.RegisterRequestDTO;
 import com.user_service.model.User;
 import com.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<?> register(RegisterRequest request) {
+    public ResponseEntity<?> register(RegisterRequestDTO request) {
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity
                     .badRequest()

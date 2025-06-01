@@ -1,8 +1,7 @@
 package com.user_service.contoller;
 
-import com.user_service.dto.RegisterRequest;
-import com.user_service.model.User;
-import com.user_service.repository.UserRepository;
+import com.user_service.dto.AuthRequestDTO;
+import com.user_service.dto.RegisterRequestDTO;
 import com.user_service.service.CustomUserDetailsService;
 import com.user_service.service.UserService;
 import com.user_service.util.JwtUtil;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,32 +32,19 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> createAuthToken(@RequestBody AuthRequestDTO authRequestDTO) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword())
         );
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
         return userService.register(request);
-    }
-}
-
-class AuthRequest {
-    private String username;
-    private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }
 
