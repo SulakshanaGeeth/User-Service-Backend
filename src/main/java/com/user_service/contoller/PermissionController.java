@@ -15,6 +15,10 @@ public class PermissionController {
 
     private PermissionService permissionService;
 
+    public PermissionController(PermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
+
     @PostMapping
     public ResponseEntity<Permission> create( @RequestBody Permission permission) {
         Permission createdPermission = permissionService.createPermission(permission);
