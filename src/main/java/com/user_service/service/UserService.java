@@ -32,4 +32,10 @@ public class UserService {
 
         return ResponseEntity.ok("User registered successfully");
     }
+
+    public User assignRoles(User user) {
+        User existingUser = userRepository.findById(user.getId()).orElseThrow();
+        existingUser.setRoles(user.getRoles());
+        return userRepository.save(existingUser);
+    }
 }
