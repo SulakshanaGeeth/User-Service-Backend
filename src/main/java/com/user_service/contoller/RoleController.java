@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/roles")
 public class RoleController {
@@ -26,5 +28,11 @@ public class RoleController {
     public ResponseEntity<Role> assignPermissions(@RequestBody Role role){
         Role updatedRole = roleService.assignPermissions(role);
         return ResponseEntity.status(HttpStatus.OK).body(updatedRole);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Role>> getRoles(){
+        List<Role> roles = roleService.getRoles();
+        return ResponseEntity.status(HttpStatus.OK).body(roles);
     }
 }
