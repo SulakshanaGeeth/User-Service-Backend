@@ -1,7 +1,7 @@
 package com.user_service.contoller;
 
 import com.user_service.dto.AuthRequestDTO;
-import com.user_service.dto.RegisterRequestDTO;
+import com.user_service.dto.AuthResponseDTO;
 import com.user_service.service.CustomUserDetailsService;
 import com.user_service.service.UserService;
 import com.user_service.util.JwtUtil;
@@ -39,17 +39,8 @@ public class AuthController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequestDTO.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(jwt));
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
-        return userService.register(request);
+        return ResponseEntity.ok(new AuthResponseDTO(jwt));
     }
 }
 
-class AuthResponse {
-    private final String jwt;
-    public AuthResponse(String jwt) { this.jwt = jwt; }
-    public String getJwt() { return jwt; }
-}
+

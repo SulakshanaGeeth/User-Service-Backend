@@ -1,5 +1,6 @@
 package com.user_service.contoller;
 
+import com.user_service.dto.RegisterRequestDTO;
 import com.user_service.model.User;
 import com.user_service.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PatchMapping("/assign-role")
-    public ResponseEntity<User> assignRole(@RequestBody User user) {
-        User updatedUser = userService.assignRoles(user);
-        return ResponseEntity.ok(updatedUser);
-    }
-
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
         List<User> userList = userService.getUsers();
         return ResponseEntity.ok(userList);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
+        return userService.register(request);
+    }
+
+    @PatchMapping("/assign-role")
+    public ResponseEntity<User> assignRole(@RequestBody User user) {
+        User updatedUser = userService.assignRoles(user);
+        return ResponseEntity.ok(updatedUser);
     }
 }
