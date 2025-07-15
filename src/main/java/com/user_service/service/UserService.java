@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -37,5 +39,9 @@ public class UserService {
         User existingUser = userRepository.findById(user.getId()).orElseThrow();
         existingUser.setRoles(user.getRoles());
         return userRepository.save(existingUser);
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

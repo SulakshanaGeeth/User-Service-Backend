@@ -1,13 +1,10 @@
 package com.user_service.service;
 
-import com.user_service.model.Permission;
 import com.user_service.model.Role;
 import com.user_service.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class RoleService {
