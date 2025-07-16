@@ -6,4 +6,8 @@ public class AuthResponseDTO {
     public AuthResponseDTO(String jwt) {
         this.jwt = jwt;
     }
+
+    public String getJwt() {
+        return jwt;
+    }
 }
