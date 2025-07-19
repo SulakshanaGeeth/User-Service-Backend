@@ -34,4 +34,10 @@ public class UserController {
         User updatedUser = userService.assignRoles(user);
         return ResponseEntity.ok(updatedUser);
     }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId){
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User Deleted");
+    }
 }
